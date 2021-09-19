@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
+import { Request } from 'express';
 
 @Controller('cat')
 export class CatController {
@@ -8,7 +9,10 @@ export class CatController {
   // @HttpCode(...)でステータスコードを変更できる
   @Get()
   // メソッド名は任意
-  findAll(): string {
+  // @Reqデコレータ経由でリクエストオブジェクトにアクセスできる
+  // メソッドにデコレータを注入することで使用できる
+  findAll(@Req() request: Request): string {
+    console.log(request);
     // オブジェクトを返す場合、自動的にjsonにシリアライズされる
     // プリミティブ型(string, number, boolean)を返す場合は値だけを返す
     return 'This action returns all cats';
