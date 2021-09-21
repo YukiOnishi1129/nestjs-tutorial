@@ -24,6 +24,11 @@ export class CatController {
     return 'This  action returns cats profile';
   }
 
+  @Get('ab*cd') // ワイルドカード: abcd, ab_cd, abecdが対象
+  findABCD() {
+    return 'This route uses a wildcard';
+  }
+
   @Post()
   create(): string {
     return 'This action adds a new cat';
