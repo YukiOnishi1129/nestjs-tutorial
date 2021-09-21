@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Req, HttpCode, Header } from '@nestjs/common';
 import { Request } from 'express';
 
 @Controller('cat')
@@ -31,6 +31,7 @@ export class CatController {
 
   @Post()
   @HttpCode(204) // ステータスコードを指定できる
+  @Header('Cache-Control', 'none') // レスポンスヘッダーを指定できる
   create(): string {
     return 'This action adds a new cat';
   }
