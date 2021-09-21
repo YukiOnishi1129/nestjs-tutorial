@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req, HttpCode } from '@nestjs/common';
 import { Request } from 'express';
 
 @Controller('cat')
@@ -30,6 +30,7 @@ export class CatController {
   }
 
   @Post()
+  @HttpCode(204) // ステータスコードを指定できる
   create(): string {
     return 'This action adds a new cat';
   }
