@@ -4,11 +4,14 @@ import {
   Post,
   Param,
   Req,
+  Body,
   Redirect,
   HttpCode,
   Header,
 } from '@nestjs/common';
 import { Request } from 'express';
+/* dto */
+import { CreateCatDto } from './create-cat.dto';
 
 @Controller('cat')
 export class CatController {
@@ -39,10 +42,11 @@ export class CatController {
   }
 
   @Post()
-  @HttpCode(204) // ステータスコードを指定できる
-  @Header('Cache-Control', 'none') // レスポンスヘッダーを指定できる
-  create(): string {
-    return 'This action adds a new cat';
+  // @HttpCode(204) // ステータスコードを指定できる
+  // @Header('Cache-Control', 'none') // レスポンスヘッダーを指定できる
+  create(@Body() createCatDto: CreateCatDto): string {
+    console.log(createCatDto);
+    return `This action adds a new cat. name: ${createCatDto.name}, age: ${createCatDto.age}, breed: ${createCatDto.breed}`;
   }
 
   @Get('redirect')
