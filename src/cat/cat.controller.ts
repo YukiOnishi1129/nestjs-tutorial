@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Param,
   Req,
   Redirect,
   HttpCode,
@@ -48,5 +49,16 @@ export class CatController {
   @Redirect('https://docs.nestjs.com', 302) //リダイレクトさせる
   getCatRedirect() {
     // return;
+  }
+
+  // @Get(':id') // 「/cat/2」のurlでid=2を受け取る
+  // findOne(@Param() params): string {
+  //   console.log(params.id);
+  //   return `This action returns a #${params.id} cat`;
+  // }
+
+  @Get(':id') // 「/cat/2」のurlでid=2を受け取る
+  findOne(@Param('id') id: string): string {
+    return `This action returns a #${id} cat`;
   }
 }
