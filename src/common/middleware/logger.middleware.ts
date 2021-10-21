@@ -9,3 +9,9 @@ export class LoggerMiddleware implements NestMiddleware {
     next();
   }
 }
+
+// 関数でも定義できる
+export function logger(req: Request, res: Response, next: NextFunction) {
+  console.log(`Request...`);
+  next();
+}

@@ -7,7 +7,10 @@ import {
 /* modules */
 import { CatModule } from './cat/cat.module';
 /* middleware */
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import {
+  LoggerMiddleware,
+  logger,
+} from './common/middleware/logger.middleware';
 /* controllers */
 import { AppController } from './app.controller';
 /* services */
