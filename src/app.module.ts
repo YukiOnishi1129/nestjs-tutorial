@@ -19,6 +19,7 @@ import { AppService } from './app.service';
   providers: [AppService], // providerを定義
 })
 export class AppModule implements NestModule {
+  // MiddlewareConsumer: ヘルパークラス ミドルウェアを管理するための組み込みメソッドを提供している
   configure(consumer: MiddlewareConsumer) {
     // catルートハンドラにLoggerMiddlewareを定義
     // forRoutesにルートパスやリクエストメソッドを含むオブジェクトを渡すことで、
@@ -31,5 +32,12 @@ export class AppModule implements NestModule {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes({ path: 'cat', method: RequestMethod.GET });
+
+    // exclude: 特定のルートに適用させないようにする
+    consumer.apply(LoggerMiddleware).exclude(
+      // { path: 'cat', method: RequestMethod.GET },
+      { path: 'cat', method: RequestMethod.POST },
+      'cat/(.*)',
+    );
   }
 }
