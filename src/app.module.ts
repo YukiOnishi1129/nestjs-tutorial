@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  RequestMethod,
+  MiddlewareConsumer,
+} from '@nestjs/common';
 /* modules */
 import { CatModule } from './cat/cat.module';
 /* middleware */
@@ -18,7 +23,13 @@ export class AppModule implements NestModule {
     // catルートハンドラにLoggerMiddlewareを定義
     // forRoutesにルートパスやリクエストメソッドを含むオブジェクトを渡すことで、
     // ミドルウェアを特定のリクエストメソッドに制限できる
+
     // urlが/cat/~のルートのみミドルウェアを適用させる
-    consumer.apply(LoggerMiddleware).forRoutes('cat');
+    // consumer.apply(LoggerMiddleware).forRoutes('cat');
+
+    // urlが/cat/~のルートでGETリクエストのみミドルウェアを適用させる
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: 'cat', method: RequestMethod.GET });
   }
 }
