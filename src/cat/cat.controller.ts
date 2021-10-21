@@ -10,11 +10,17 @@ import {
   Header,
 } from '@nestjs/common';
 import { Request } from 'express';
+/* services */
+import { CatService } from './cat.service';
 /* dto */
 import { CreateCatDto } from './dto/create-cat.dto';
+/* interface */
+import { Cat } from './interfaces/cat.interface';
 
 @Controller('cat')
 export class CatController {
+  // CatServiceはコンストラクタにDIされ、インスタンス化される (コントローラーのプロパティとなる)
+  constructor(private catService: CatService) {}
   // @Get(): getパラメータのメソッドに指定
   // Getのステータスコードは200
   // POSTは201
@@ -23,11 +29,12 @@ export class CatController {
   // メソッド名は任意
   // @Reqデコレータ経由でリクエストオブジェクトにアクセスできる
   // メソッドにデコレータを注入することで使用できる
-  findAll(@Req() request: Request): string {
+  findAll(@Req() request: Request): Cat[] {
     // オブジェクトを返す場合、自動的にjsonにシリアライズされる
     // プリミティブ型(string, number, boolean)を返す場合は値だけを返す
-    return 'This action returns all cats';
+    // return 'This action returns all cats';
     // return [1, 2, 3];
+    return this.catService.findAll();
   }
 
   // /cat/profileのルーティング
@@ -44,9 +51,8 @@ export class CatController {
   @Post()
   // @HttpCode(204) // ステータスコードを指定できる
   // @Header('Cache-Control', 'none') // レスポンスヘッダーを指定できる
-  create(@Body() createCatDto: CreateCatDto): string {
-    console.log(createCatDto);
-    return `This action adds a new cat. name: ${createCatDto.name}, age: ${createCatDto.age}, breed: ${createCatDto.breed}`;
+  create(@Body() createCatDto: CreateCatDto) {
+    this.catService.create(createCatDto);
   }
 
   @Get('redirect')
