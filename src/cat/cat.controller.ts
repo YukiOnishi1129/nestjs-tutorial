@@ -19,7 +19,7 @@ import { Cat } from './interfaces/cat.interface';
 
 @Controller('cat')
 export class CatController {
-  // コンストラクタからinjectされる
+  // CatServiceはコンストラクタにDIされ、インスタンス化される (コントローラーのプロパティとなる)
   constructor(private catService: CatService) {}
   // @Get(): getパラメータのメソッドに指定
   // Getのステータスコードは200

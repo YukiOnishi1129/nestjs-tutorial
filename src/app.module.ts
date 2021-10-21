@@ -7,6 +7,6 @@ import { CatService } from './cat/cat.service';
 @Module({
   imports: [],
   controllers: [AppController, CatController],
-  providers: [AppService, CatService],
+  providers: [AppService, CatService], // providerを定義
 })
 export class AppModule {}
