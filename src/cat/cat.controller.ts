@@ -8,6 +8,8 @@ import {
   Redirect,
   HttpCode,
   Header,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Request } from 'express';
 /* services */
@@ -35,6 +37,15 @@ export class CatController {
     // return 'This action returns all cats';
     // return [1, 2, 3];
     return this.catService.findAll();
+
+    // 例外を返す
+    /**
+       * {
+          "statusCode": 403,
+          "message": "Forbidden"
+          }
+     */
+    // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
 
   // /cat/profileのルーティング
